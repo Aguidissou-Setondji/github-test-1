@@ -35,6 +35,7 @@ if (isset($_GET['id'])) {
 <head>
     <meta charset="UTF-8">
     <title>Modifier l’utilisateur</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h2>Modifier l'utilisateur</h2>

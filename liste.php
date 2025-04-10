@@ -2,10 +2,32 @@
 // Connexion à la base de données
 $pdo = new PDO('mysql:host=localhost;dbname=github_test;charset=utf8', 'root', 'Phanel23!');
 
+// Nombre d'inscrits par page
+$parPage = 5;
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$offset = ($page - 1) * $parPage;
+
+// Compter le total
+$total = $pdo->query("SELECT COUNT(*) FROM users")->fetchColumn();
+$pages = ceil($total / $parPage);
+
 // Récupérer tous les utilisateurs
-$sql = "SELECT * FROM users ORDER BY created_at DESC";
-$inscrip = $pdo->query($sql);
-$users = $inscrip->fetchAll(PDO::FETCH_ASSOC);
+if (!empty($_GET['search'])) {
+    $search = '%' . $_GET['search'] . '%';
+    $inscrip = $pdo->prepare("SELECT * FROM users WHERE nom LIKE ? OR email LIKE ? ORDER BY created_at DESC LIMIT $parPage OFFSET $offset");
+    $inscrip->execute([$search, $search]);
+    $users = $inscrip->fetchAll(PDO::FETCH_ASSOC);
+
+    // Pour la pagination, on compte aussi les résultats filtrés
+    $countInscrip = $pdo->prepare("SELECT COUNT(*) FROM users WHERE nom LIKE ? OR email LIKE ?");
+    $countInscrip->execute([$search, $search]);
+    $total = $countInscrip->fetchColumn();
+    $pages = ceil($total / $parPage);
+} else {
+    $inscrip = $pdo->query("SELECT * FROM users ORDER BY created_at DESC LIMIT $parPage OFFSET $offset");
+    $users = $inscrip->fetchAll(PDO::FETCH_ASSOC);
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -36,6 +58,10 @@ $users = $inscrip->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body>
     <h2>Liste des utilisateurs inscrits</h2>
+    <form method="GET" style="text-align:center; margin-bottom: 20px;">
+        <input type="text" name="search" placeholder="Rechercher par nom ou email" value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '' ?>">
+        <button type="submit"> Rechercher</button>
+    </form>
     <table>
         <thead>
             <tr>
@@ -61,9 +87,22 @@ $users = $inscrip->fetchAll(PDO::FETCH_ASSOC);
             <?php endforeach; ?>
         </tbody>
     </table>
+    <div style="text-align: center;">
+        <a href="export_csv.php<?= isset($_GET['search']) ? '?search=' . urlencode($_GET['search']) : '' ?>">
+            <button style="padding: 10px 20px; font-size: 16px; cursor: pointer;">Exporter en CSV</button>
+        </a>
+    </div>
+
+    <div style="text-align: center; margin-top: 20px;">
+        <?php for ($i = 1; $i <= $pages; $i++) : ?>
+            <a href="?page=<?= $i ?>" style="margin: 0 5px; <?= $i === $page ? 'font-weight: bold;' : '' ?>">
+             <?= $i ?>
+            </a>
+        <?php endfor; ?>
+    </div>
     <div style="text-align: center; margin-top: 20px;">
         <a href="index.php">
-            <button style="padding: 10px 20px; font-size: 16px; cursor: pointer;">⬅️ Retour à l’accueil</button>
+            <button style="padding: 10px 20px; font-size: 16px; cursor: pointer;">Retour à l’accueil</button>
         </a>
     </div>
 </body>
