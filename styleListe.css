@@ -130,3 +130,24 @@ tr:nth-child(even) {
 .pagination a:hover {
     color :#dc3545;
 }
+
+.logout {
+    margin : 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.logout a {
+    text-decoration:none;
+    
+}
+
+.logout button { 
+    cursor: pointer;
+    padding: 10px;
+    font-size: 15px;
+    margin-right: 20px;
+    background-color: #3eb13e;
+    border-radius: 8px;
+    color: white;
+}

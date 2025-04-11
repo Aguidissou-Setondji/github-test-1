@@ -7,7 +7,7 @@
     <title>Inscription</title>
 </head>
 <body>
-    <h2>Formulaire d'inscription</h2>
+    <h2>Formulaire d'inscription des utilisateurs</h2>
     <form action="traitement.php" method="POST">
         <label>Nom :</label><br>
         <input type="text" name="nom" required><br><br>
@@ -21,4 +21,9 @@
         <button type="submit">S'inscrire</button>
     </form>
 </body>
+<footer class="footer">
+    <a href="login.php" style="float: right;" class="home button">
+        <button> Administrateur </button>
+    </a>
+</footer>
 </html>

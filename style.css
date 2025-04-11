@@ -52,3 +52,43 @@ button {
 button:hover {
     background-color: #0056b3;
 }
+
+.logout {
+    margin : 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.logout button { 
+    cursor: pointer;
+    padding: 10px;
+    font-size: 13px;
+    margin-right: 20px;
+    background-color: #dc3545;
+    border-radius: 8px;
+}
+
+.home {
+    margin : 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.home button {
+    cursor: pointer;
+    padding: 10px;
+    font-size: 15px;
+    margin-right: 20px;
+    background-color: #3eb13e;
+    border-radius: 8px;
+}
+
+.footer {
+    margin : 5px;
+    display: flex;
+    justify-content: center;
+}
+
+.footer a {
+    text-decoration: none;
+}

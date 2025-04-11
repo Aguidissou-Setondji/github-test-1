@@ -1,4 +1,11 @@
 <?php
+// Sécuriser l’accès à la liste
+session_start();
+if (!isset($_SESSION['admin'])) {
+    header("Location: login.php");
+    exit();
+}
+
 // Connexion à la base de données
 $pdo = new PDO('mysql:host=localhost;dbname=github_test;charset=utf8', 'root', 'Phanel23!');
 
@@ -86,4 +93,9 @@ if (!empty($_GET['search'])) {
         </div>
     </div>
 </body>
+<footer class="logout">
+    <a href="logout.php" style="float: right;">
+        <button> Déconnexion </button>
+    </a>
+</footer>
 </html>
