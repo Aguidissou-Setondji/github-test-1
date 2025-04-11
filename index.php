@@ -25,5 +25,8 @@
     <a href="login.php" style="float: right;" class="home button">
         <button> Administrateur </button>
     </a>
+    <a href="liste.php" style="float: right;" class="list button">
+        <button> Liste des inscrits </button>
+    </a>
 </footer>
 </html>

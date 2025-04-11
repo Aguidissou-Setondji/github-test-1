@@ -83,6 +83,22 @@ button:hover {
     border-radius: 8px;
 }
 
+.list {
+    margin : 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.list button {
+    cursor: pointer;
+    padding: 10px;
+    font-size: 15px;
+    margin-right: 20px;
+    background-color: #ffc107;
+    border-radius: 8px;
+    color: black;
+}
+
 .footer {
     margin : 5px;
     display: flex;
